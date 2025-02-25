@@ -1,0 +1,11 @@
+{
+  "name": "-employee-entry-management",
+  "version": "1.0.0",
+  "description": "Employee-Entry-System",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Harshit and Ayushi Kandpal",
+  "license": "ISC"
+}

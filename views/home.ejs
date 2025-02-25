@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Proctor</title>
+    <style>
+        /* General Styles */
+        * {
+            font-family: Roboto, sans-serif;
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden; /* Prevents horizontal scrolling */
+            width: 100%;
+            background: radial-gradient(circle, rgba(97,98,131,1) 0%, rgba(97,98,131,1) 50%, rgba(158,123,155,1) 100%);
+        }
+
+        /* Top Bar */
+        .topbar {
+            width: 100%;
+            padding: 5vw;
+            background-color: #0E1116;
+            height: 6vw;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .topheading {
+            font-size: 6vw;
+            color: #3675d3;
+            font-weight: 500;
+        }
+
+        button {
+            font-size: 1.5vw;
+            font-weight: 500;
+            border: 0.1vw solid #374A67;
+            height: 4vw;
+            width: 10vw;
+            color: #3675d3;
+            background: none;
+            border-radius: 100px;
+            cursor: pointer;
+            transition: background 0.3s ease-in-out;
+        }
+
+        button:hover {
+            background: #374A67;
+            color: white;
+        }
+
+        /* Main Container */
+        .maincontainer {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            opacity: 100;
+            background-color: transparent;
+            align-items: center;
+            justify-content: space-between;
+            gap:20vw;
+            padding: 1vw 10vw;
+
+        }
+
+        /* Blob Styling */
+        .blob {
+            position: relative;
+            height: 10vw;
+            width: 30vw;
+            font-size: 2vw;
+            color: rgb(216, 225, 240);
+            text-align: center;
+            z-index: 1;
+            animation: pulseBlob 4s infinite ease-in-out;
+
+        }
+
+        .blob::before {
+            padding: 5vw 5vw 0vw 11vw;
+            content: 'Online monitoring system for secure assessments.Ensures integrity and fairness in remote evaluations.';
+            position: absolute;
+            border-radius: 10%;
+            width: 40vw;
+            height: 25vw;
+            left: -5vw;
+            top: -4vw;
+            background-color: rgb(14, 114, 148);
+            z-index: -1;
+            transform: skewY(10deg);
+            animation: rotateBlob 5s infinite ease-in-out, colorChange 5s infinite alternate;
+
+        }
+/* Blob Styling */
+
+
+
+
+/* Smooth Rotating Effect */
+@keyframes rotateBlob {
+    0% { transform: skewY(-1deg) rotate(0deg); }
+    50% { transform: skewY(1deg) rotate(0deg); }
+    100% { transform: skewY(-1deg) rotate(0deg); }
+}
+
+/* Pulsating Effect */
+@keyframes pulseBlob {
+    0% { transform: scale(1); }
+    50% { transform: scale(1); }
+    100% { transform: scale(1); }
+}
+
+/* Background Color Changing Effect */
+@keyframes colorChange {
+    0% { background-color: rgb(14, 114, 148); }
+    100% { background-color: rgb(30, 170, 200); }
+}
+
+        /* Image Container */
+        .img-container {
+            border-radius: 100%;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            margin-top: 5vw;
+        }
+        .img-container::after{
+            content:'asdsad';
+            position:absolute;
+            color:white;
+            height: 100vw;
+            width:100vw;
+            z-index: -1;
+            top:2vw;
+            left:0;
+            border-radius: 0% 0% 100% 0%;
+            background-color: #0E1116;
+        }
+
+        .img-container img {
+            width: 30vw;
+            height: 30vw;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="topbar">
+        <div class="topheading">E-Proctor</div>
+        <button>Login</button>
+    </div>
+
+    <div class="maincontainer">
+        <div class="blob"> 
+            
+        </div>
+
+        <div class="img-container">
+            <img src="/stylesheet/original-e9e50db8bb75bfc3cd56779c716e5914.gif" alt="E-Proctor GIF">
+        </div>
+    </div>
+</body>
+</html>
