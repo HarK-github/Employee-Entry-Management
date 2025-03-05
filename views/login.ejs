@@ -193,16 +193,18 @@
 <body>
     <div class="topbar">
         <div class="topheading">E-Proctor</div>
-        <button>Home</button>
+        <form method="get" action="/home">    
+        <button type="submit">Home</button>
+         </form>
     </div >
     <div style="width:100%;display:flex;padding:3vw;justify-content:center;">
             <div class="loginbox">
         <div style="text-align: center;font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">LOGIN</div>
         <form method="post">
-            <div><input class="texts" name="name" value="Username"></input>
+            <div><input class="texts" name="name" value="uname"></input>
             </div>
             <div>
-                <input class="texts" name="password" type="password"></input>
+                <input class="texts" name="password" value="pwd" type="password"></input>
             </div>
             <div style="justify-content: center; display: flex;"><input class="submit" type="submit" value="Login"></input></div>
             
