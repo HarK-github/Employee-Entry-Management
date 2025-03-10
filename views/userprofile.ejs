@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>E-Proctor</title>
+
     <style>
         /* General Styles */
         * {
@@ -179,14 +180,15 @@
 
         }
         .user{
-            width:70vw;
+            width:60vw;
             height:30vw;
             display:flex;
             gap:2vw;
         }
         .right{
-            width:20vw;
+            width:30vw;
             height:30vw;
+
         }
         .bottom{
             height:30vw;
@@ -200,7 +202,6 @@
         .start{
             background-color: #268436;
             border-radius: 0.5vw;
-            margin: 10vw 0vw 0vw 0vw;
             color:#d7fff2;
             font-weight: bold;
             font-size:1.5vw;
@@ -212,26 +213,33 @@
 <body>
     <div class="topbar">
         <div class="topheading">E-Proctor</div>
-        <img style="width:3vw;height:3vw" src="/stylesheet/user.png">
+        <img style="width:3vw;height:3vw" src="/image/user.png">
     </div >
     <div class="transbx master">
         <div class=" top">
                 <div class=" bx user">
-
-                    <img style="width:20vw;height:20vw" src="/stylesheet/user.png">
+                    <div>
+                    <img style="width:20vw;height:20vw" src="/image/user.png">
+                    <form method="get" action="/updateimg">    
+                        <button class="start">Upload picture</button>
+                    </form>
+                </div>
                     <div class="lighttext">    
-                     User name:<br>
-                        Age:<br>
-                        Work Hours:<br><br>
-                        Phone number:<br>
-                        Email ID:<br>
+                     User name:Test <br>
+                        Age: 40<br>
+                        Work Hours:?<br><br>
+                        Phone number:?<br>
+                        Email ID:?<br>
                     </div>
                 </div>
-                <div class="bx right">
-                    <div style="font-family: 'Courier New', Courier, monospace;color:#4e4f51;font-size: 2vw;">Start Your session</div>
-                    <div class="vid">Image</div>
-                    <div style="display: flex;justify-content: center;"><button class="start">START Session</button></div>
-                </div>
+                <div class="bx right" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1vw;">
+                    <video id="video" width="100%" height="auto" autoplay muted style="max-width: 90%; border-radius: 1vw; border: 2px solid #4e4f51;"></video>
+                    <canvas id="canvas" style="display: none;"></canvas>
+                    <img id="photo" style="width: 100px; height: 100px; display: none;">
+                    <button class="start" id="captureButton">Start Capture</button>
+</div>
+
+                
 
         </div>
         <div class="bx bottom">
@@ -272,4 +280,55 @@
 
     <div class="text">Made with ❤ by HAR AYU</div>
 </body>
+<script>
+    const video = document.getElementById('video');
+    const canvas = document.getElementById('canvas');
+    const photo = document.getElementById('photo');
+    const captureButton = document.getElementById('captureButton');
+
+    // Access webcam
+    async function startCamera() {
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+            video.srcObject = stream;
+        } catch (err) {
+            console.error("Error accessing the camera", err);
+        }
+    }
+
+    function captureImage() {
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+        const imageDataUrl = canvas.toDataURL('image/jpeg'); // Convert image to Base64
+        photo.src = imageDataUrl;
+        photo.style.display = "block";
+
+        // Send image to Node.js server
+        fetch('/upload', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ image: imageDataUrl })  // Send image data
+        })
+        .then(response => response.json())
+        .then(data => console.log('Image saved:', data))
+        .catch(error => console.error('Error:', error));
+    }
+
+    // Capture image every 5 seconds
+    let captureInterval;
+    captureButton.addEventListener('click', () => {
+        if (captureInterval) {
+            clearInterval(captureInterval);
+            captureInterval = null;
+            captureButton.textContent = "Start Capture";
+        } else {
+            captureImage(); // Capture immediately
+            captureInterval = setInterval(captureImage, 5000);
+            captureButton.textContent = "Stop Capture";
+        }
+    });
+
+    startCamera();
+</script>
 </html>
