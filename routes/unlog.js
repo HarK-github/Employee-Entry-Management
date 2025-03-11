@@ -1,7 +1,9 @@
 import express from "express"
 import path from "path"
 import fs from "fs"
+import fr from "fa"
 const loginroute = express.Router();
+
 
 loginroute.get("/",(req,res)=>{
     res.redirect("/home");
@@ -25,7 +27,26 @@ loginroute.get('/userpro',(req,res)=>{
 loginroute.get('/updateimg',(req,res)=>{
     res.render("updtimg");
 })
+loginroute.post('/uploadprofile',(req,res)=>{
+    const { image } = req.body;
+    if(!image){
+        return res.status(400).json({error:'No image recieved'});
+    }
+    // Convert base64 to buffer
+    const base64Data = image.replace(/^data:image\/jpeg;base64,/, "");
+    const filePath = path.join(`./stylesheet/user.png`);
 
+    // Save image to file
+    fs.writeFile(filePath, base64Data, 'base64', (err) => {
+        if (err) {
+            console.error('Error saving image:', err);
+            return res.status(500).json({ error: 'Failed to save image' });
+        }
+        console.log('Image saved:', filePath);
+        res.json({ message: 'Image saved', path: filePath });
+    });
+    
+})
 loginroute.post('/upload', (req, res) => {
     const { image } = req.body;
     
