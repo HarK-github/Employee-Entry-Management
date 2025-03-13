@@ -7,6 +7,7 @@
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Lobster&family=Roboto:ital,wght@0,413;1,413&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
 
         /* General Styles */
         * {
@@ -47,8 +48,9 @@
         .topheading {
             padding: 2vw;
             font-size: 4vw;
-            color: #3675d3;
+            color: #e7ffbb;
             font-weight: 500;
+            font-family: Lobster;
         }
 
         
@@ -168,6 +170,10 @@
             color:#fbf0de;
         }
         
+        #attendanceLogContainer {
+            max-height: 20vw; /* Adjust height as needed */
+            overflow-y: auto;  /* Enables vertical scrolling*/
+        }        
         .description{
             color:#97989c;
         }
@@ -182,6 +188,22 @@
             gap:1vw;
 
         }
+        .scrollable-container {
+            max-height: 20vw;
+            overflow-y: auto;
+            padding-right: 10px;
+            scrollbar-width: thin;
+        }
+        
+        .scrollable-container::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .scrollable-container::-webkit-scrollbar-thumb {
+            background: #444;
+            border-radius: 4px;
+        }
+        
         .user{
             width:60vw;
             height:30vw;
@@ -210,12 +232,26 @@
         .start{
             background-color: #268436;
             border-radius: 0.5vw;
+            border:0px;
             color:#d7fff2;
             font-weight: bold;
             font-size:1.5vw;
             width:10vw;
             height:5vw;
         }
+        .pdfui{ 
+            background-color: #1d72b8;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .pdfui:hover {
+            background-color: #155a8a;
+        }
+        
     </style>
  <script defer src="/face-api.js"></script>
 
@@ -230,9 +266,10 @@
         <div class=" top">
                 <div class=" bx user">
                     <div>
-                    <img style="width:20vw;height:20vw" src="/image/user.png">
+                    <img style="width:20vw;height:20vw;border-radius:100%" src="/image/user.png">
                     <form method="get" action="/updateimg">    
                         <button class="start">Upload picture</button>
+                        
                     </form>
                 </div>
                     <div class="lighttext">    
@@ -241,6 +278,16 @@
                         Work Hours:?<br><br>
                         Phone number:?<br>
                         Email ID:?<br>
+                        <form method="get" action="/pdfsummary">    
+                            <button class="pdfui">Download Work Report</button>
+                        </form>
+                        <button class="pdfui">Download Work Report</button>
+                    </div>
+                    <div>
+                        <h2>Status Logs:</h2>
+    <div class="scrollable-container">
+        <div id="status" style="color:#97989c"></div>
+    </div>
                     </div>
                 </div>
                 <div class="bx right" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1vw;">
@@ -248,101 +295,38 @@
                     <canvas id="canvas" style="display: none;"></canvas>
                     <img id="photo" style="width: 100px; height: 100px; display: none;">
                     <button class="start" id="captureButton">Start Capture</button>
+                    <button class="start" id="stopCaptureButton" style="background-color:red;">Stop Capture</button>
 </div>
 
                 
 
         </div>
         <div class="bx bottom">
-           <h2>Work history:</h2>
-           <div class="status-box" style="background-color: #141b23; color: white; padding: 15px; border-radius: 10px; width: 100%; display: flex; flex-direction: column;">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <span><strong>Status:</strong> <span id="status">Offline</span></span>
-                <span><strong>Time:</strong> <span id="time">--:--</span></span>
-            </div>
-            <div id="comment-section" style="margin-top: 10px; display: none;">
-                <label for="comment"><strong>Add Comment:</strong></label>
-                <textarea id="comment" style="width: 100%; height: 50px; margin-top: 5px; background: #333; color: white; border: 1px solid #555; border-radius: 5px;"></textarea>
-            </div>
-        </div>
-        <div class="status-box" style="background-color: #141b23; color: white; padding: 15px; border-radius: 10px; width: 100%; display: flex; flex-direction: column;">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <span><strong>Status:</strong> <span id="status">Offline</span></span>
-                <span><strong>Time:</strong> <span id="time">--:--</span></span>
-            </div>
-            <div id="comment-section" style="margin-top: 10px; display: none;">
-                <label for="comment"><strong>Add Comment:</strong></label>
-                <textarea id="comment" style="width: 100%; height: 50px; margin-top: 5px; background: #333; color: white; border: 1px solid #555; border-radius: 5px;"></textarea>
-            </div>
-        </div>
-        <div class="status-box" style="background-color: #141b23; color: white; padding: 15px; border-radius: 10px; width: 100%; display: flex; flex-direction: column;">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <span><strong>Status:</strong> <span id="status">Offline</span></span>
-                <span><strong>Time:</strong> <span id="time">--:--</span></span>
-            </div>
-            <div id="comment-section" style="margin-top: 10px; display: none;">
-                <label for="comment"><strong>Add Comment:</strong></label>
-                <textarea id="comment" style="width: 100%; height: 50px; margin-top: 5px; background: #333; color: white; border: 1px solid #555; border-radius: 5px;"></textarea>
-            </div>
-        </div>   
-        </div>
-    </div>
+            <div class="bx bottom">
+                <h2>Work history:</h2>
+                <div id="attendanceLogContainer">
 
+                <div id="attendanceLog">
+                    <% attendanceLog.forEach(entry => { %>
+                        <div class="status-box" style="background-color: #141b23; color: white; padding: 15px; border-radius: 10px; width: 100%; display: flex; flex-direction: column; margin-bottom: 10px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span><strong>Status:</strong> <%= entry.status %></span>
+                                <span><strong>Time:</strong> <%= entry.timestamp %></span>
+                            </div>
+                        </div>
+                    <% }); %>
+                </div>
+                </div>
+                
+            </div>
+            
+            </div> 
+         <!-- Attendance Log -->
+        </div>
 
     <div class="text">Made with ❤ by HAR AYU</div>
+    </div>
 </body>
 <script defer src = "/script.js"></script>
 
-<!-- <script>
-    const video = document.getElementById('video');
-    const canvas = document.getElementById('canvas');
-    const photo = document.getElementById('photo');
-    const captureButton = document.getElementById('captureButton');
-
-    // Access webcam
-    async function startCamera() {
-        try {
-            const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-            video.srcObject = stream;
-        } catch (err) {
-            console.error("Error accessing the camera", err);
-        }
-    }
-
-    function captureImage() {
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-        canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-        const imageDataUrl = canvas.toDataURL('image/jpeg'); // Convert image to Base64
-        photo.src = imageDataUrl;
-        photo.style.display = "block";
-
-        // Send image to Node.js server
-        fetch('/upload', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ image: imageDataUrl })  // Send image data
-        })
-        .then(response => response.json())
-        .then(data => console.log('Image saved:', data))
-        .catch(error => console.error('Error:', error));
-    }
-
-    // Capture image every 5 seconds
-    let captureInterval;
-    captureButton.addEventListener('click', () => {
-        if (captureInterval) {
-            clearInterval(captureInterval);
-            captureInterval = null;
-            captureButton.textContent = "Start Capture";
-        } else {
-            captureImage(); // Capture immediately
-            captureInterval = setInterval(captureImage, 5000);
-            captureButton.textContent = "Stop Capture";
-        }
-    });
-
-    startCamera();
-    
-</script> -->
 </html>
