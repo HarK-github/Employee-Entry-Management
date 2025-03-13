@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Upload</title>
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Lobster&family=Roboto:ital,wght@0,413;1,413&display=swap');
+
+        /* General Styles */
+        * {
+            font-family: Roboto, sans-serif;
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            width: 100%;
+            --s: 20vw; /* control the size*/
+            --c1: #1d1d1d;
+            --c2: #4e4f51;
+            --c3: #3c3c3c;
+  
+            background:
+                repeating-conic-gradient(from 30deg,#0000 0 120deg,var(--c3) 0 50%) 
+                calc(var(--s)/2) calc(var(--s)*tan(30deg)/2),
+                repeating-conic-gradient(from 30deg,var(--c1) 0 60deg,var(--c2) 0 120deg,var(--c3) 0 50%);
+            background-size: var(--s) calc(var(--s)*tan(30deg));
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+        }
+        .container {
+            text-align: center;
+            background-color: rgba(19, 24, 32, 0.8);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+        .upload-box {
+            margin-top: 20px;
+        }
+        .upload-label {
+            padding: 10px 20px;
+            background-color: #268436;
+            border-radius: 5px;
+            cursor: pointer;
+            color: aliceblue;
+            display: inline-block;
+        }
+        #preview {
+            margin-top: 20px;
+            max-width: 100%;
+            border-radius: 10px;
+        }
+        .submit-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #3675d3;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Get summary pdf of your work report:</h1>
+        <div class="upload-box">
+            <button class="upload-label" id="downloadPdfButton">Download</button>
+           
+        </div>
+        <form method="GET" action="/userpro">        
+            <button class="submit-btn" type="submit">Return Home</button>
+        </form>
+
+        </div>
+
+        <script src="/attendance.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+</body>
+</html>

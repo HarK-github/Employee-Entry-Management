@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Proctor</title>
+    <style>
+        /* General Styles */
+        * {
+            font-family: Roboto, sans-serif;
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            width: 100%;
+  --s: 20vw; /* control the size*/
+  --c1: #1d1d1d;
+  --c2: #4e4f51;
+  --c3: #3c3c3c;
+  
+  background:
+    repeating-conic-gradient(from 30deg,#0000 0 120deg,var(--c3) 0 50%) 
+     calc(var(--s)/2) calc(var(--s)*tan(30deg)/2),
+    repeating-conic-gradient(from 30deg,var(--c1) 0 60deg,var(--c2) 0 120deg,var(--c3) 0 50%);
+  background-size: var(--s) calc(var(--s)*tan(30deg));
+
+        }
+
+        /* Top Bar */
+        .topbar {
+            width: 100vw;
+            padding: 2vw;
+            background-color: #0E1116;
+            height: 10vw;
+            border-radius: 0% 0% 20% 10%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .topheading {
+            padding: 2vw;
+            font-size: 4vw;
+            color: #3675d3;
+            font-weight: 500;
+        }
+
+        button  {
+            margin:10vw;
+            font-size: 1vw;
+            font-weight: 500;
+            border: 0.1vw solid #374A67;
+            height: 2.5vw;
+            width: 7vw;
+            color: #3675d3;
+            background: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: background 0.3s ease-in-out;
+        }
+
+        button:hover {
+            background: #374A67;
+            color: white;
+        }
+
+        /* Main Container */
+        .maincontainer {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            background-color: transparent;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10vw;
+            padding: 1vw 5vw;
+        }
+
+        /* Blob Styling */
+        .blob {
+            position: relative;
+            height: 6vw;
+            width: 20vw;
+            font-size: 1.5vw;
+            color: rgb(216, 225, 240);
+            text-align: justify;
+            z-index: 1;
+            animation: pulseBlob 1s ease-in-out;
+        }
+
+        .blob::before {
+            padding: 2vw 3vw 0 6vw;
+            content: 'Online monitoring system for secure assessments.';
+            position: absolute;
+            border-radius: 10%;
+            width: 25vw;
+            height: 6vw;
+            left: -3vw;
+            top: -2vw;
+            background-color: rgb(14, 114, 148);
+            z-index: -1;
+            transform: skewY(5deg);
+            animation: rotateBlob 5s infinite ease-in-out, colorChange 5s infinite alternate;
+        }
+        .topbar::after{ 
+            content:"";
+            position:absolute;
+            color:white;
+            height: 10vw;
+            width:100vw;
+            z-index: -1;
+            top:2vw;
+            left:0;
+            border-radius: 0% 0% 100% 0%;
+            background-color: #0E1116;
+       }
+        
+        /* Image Container */
+        .img-container {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            gap:5vw;
+            margin-top: 3vw;
+        }
+
+        .img-container img {
+            width: 15vw;
+            height: 15vw;
+        }
+
+        .text {
+            color: wheat;
+            font-size: 2vw;
+            text-align: center;
+        }
+
+        .containerbot {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1vw;
+            padding: 2vw;
+        }
+        .loginbox{
+            font-size: 3vw;
+            height:25vw;
+            gap:3vw;
+            flex-direction: column;
+            padding:1vw;       
+            border-radius: 10%;      
+            background-color: rgba(2, 3, 5, 0.4);
+            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
+            width: 25vw;
+            display: flex;
+            align-items: center;
+            transition: width 1s, height 1s;
+            justify-content: center;
+        }
+        .loginbox:hover{
+            height:26vw;
+            width:26vw;
+        }
+        input.texts{
+            background-color: rgba(134, 139, 147, 0.4);
+            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
+            border: 0vw;
+            width: 20vw;
+            font-size:1.5vw;
+            font-weight:bold;
+            height:4vw;
+            padding:1vw;
+            margin:1vw;
+            border-radius: 1vw;
+        }
+        input.submit{
+            font-size: 2vw;
+            border:0px;
+            border-radius: 1vw;
+            font-weight: bold;
+            padding:1vw;
+            background-color: black;
+            color:rgb(153, 153, 212);
+            width:9vw;
+        }
+    </style>
+</head>
+<body>
+    <div class="topbar">
+        <div class="topheading">E-Proctor</div>
+        <form method="get" action="/home">    
+        <button type="submit">Home</button>
+         </form>
+    </div >
+    <div style="width:100%;display:flex;padding:3vw;justify-content:center;">
+            <div class="loginbox">
+        <div style="text-align: center;font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">LOGIN</div>
+        <form method="post">
+            <div><input class="texts" name="name" value="uname"></input>
+            </div>
+            <div>
+                <input class="texts" name="password" value="pwd" type="password"></input>
+            </div>
+            <div style="justify-content: center; display: flex;"><input class="submit" type="submit" value="Login"></input></div>
+            
+        </form>
+    </div>
+</div>
+
+
+    <div class="text">Made with ❤ by HAR AYU</div>
+</body>
+</html>

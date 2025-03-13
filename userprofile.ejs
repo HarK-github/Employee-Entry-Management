@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Proctor</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lobster&family=Roboto:ital,wght@0,413;1,413&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+
+        /* General Styles */
+        * {
+            font-family: Roboto, sans-serif;
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            width: 100%;
+  --s: 20vw; /* control the size*/
+  --c1: #1d1d1d;
+  --c2: #4e4f51;
+  --c3: #3c3c3c;
+  
+  background:
+    repeating-conic-gradient(from 30deg,#0000 0 120deg,var(--c3) 0 50%) 
+     calc(var(--s)/2) calc(var(--s)*tan(30deg)/2),
+    repeating-conic-gradient(from 30deg,var(--c1) 0 60deg,var(--c2) 0 120deg,var(--c3) 0 50%);
+  background-size: var(--s) calc(var(--s)*tan(30deg));
+
+        }
+
+        /* Top Bar */
+        .topbar {
+            width: 100vw;
+            padding: 2vw;
+            background-color: #0E1116;
+            height: 10vw;
+            border-radius: 0% 0% 20% 10%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .topheading {
+            padding: 2vw;
+            font-size: 4vw;
+            color: #e7ffbb;
+            font-weight: 500;
+            font-family: Lobster;
+        }
+
+        
+
+        
+
+        /* Main Container */
+        .maincontainer {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            background-color: transparent;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10vw;
+            padding: 1vw 5vw;
+        }
+
+        /* Blob Styling */
+        .blob {
+            position: relative;
+            height: 6vw;
+            width: 20vw;
+            font-size: 1.5vw;
+            color: rgb(216, 225, 240);
+            text-align: justify;
+            z-index: 1;
+            animation: pulseBlob 1s ease-in-out;
+        }
+
+        .blob::before {
+            padding: 2vw 3vw 0 6vw;
+            content: 'Online monitoring system for secure assessments.';
+            position: absolute;
+            border-radius: 10%;
+            width: 25vw;
+            height: 6vw;
+            left: -3vw;
+            top: -2vw;
+            background-color: rgb(14, 114, 148);
+            z-index: -1;
+            transform: skewY(5deg);
+            animation: rotateBlob 5s infinite ease-in-out, colorChange 5s infinite alternate;
+        }
+        .topbar::after{ 
+            content:"";
+            position:absolute;
+            color:white;
+            height: 10vw;
+            width:100vw;
+            z-index: -1;
+            top:2vw;
+            left:0;
+            border-radius: 0% 0% 100% 0%;
+            background-color: #0E1116;
+       }
+        
+        /* Image Container */
+        .img-container {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            gap:5vw;
+            margin-top: 3vw;
+        }
+
+        .img-container img {
+            width: 15vw;
+            height: 15vw;
+        }
+
+        .text {
+            color: wheat;
+            font-size: 2vw;
+            text-align: center;
+        }
+
+        .containerbot {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1vw;
+            padding: 2vw;
+        }
+        .trans{
+            font-size: 3vw;
+            height:25vw;
+            gap:3vw;
+            flex-direction: column;
+            padding:1vw;       
+            border-radius: 10%;      
+            background-color: rgba(2, 3, 5, 0.4);
+            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
+            width: 25vw;
+            display: flex;
+            align-items: center;
+            transition: width 1s, height 1s;
+            justify-content: center;
+        }
+        .transbx{
+            background-color: rgba(19, 24, 32, 0.4);
+            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
+            padding:1vw;
+            margin:1vw;
+        }
+        .master{
+            height:80vw;
+            display:flex;
+            flex-direction: column;
+        }
+        .lighttext{
+            font-style:-apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+            font-size:2vw;
+            font-style: bold;
+            color:#fbf0de;
+        }
+        
+        #attendanceLogContainer {
+            max-height: 20vw; /* Adjust height as needed */
+            overflow-y: auto;  /* Enables vertical scrolling*/
+        }        
+        .description{
+            color:#97989c;
+        }
+
+        .top{
+            width:90vw;
+            height:34vw;
+            display:flex;
+            flex-direction:row;
+            justify-content: row;
+            flex-wrap: wrap;
+            gap:1vw;
+
+        }
+        .scrollable-container {
+            max-height: 20vw;
+            overflow-y: auto;
+            padding-right: 10px;
+            scrollbar-width: thin;
+        }
+        
+        .scrollable-container::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .scrollable-container::-webkit-scrollbar-thumb {
+            background: #444;
+            border-radius: 4px;
+        }
+        
+        .user{
+            width:60vw;
+            height:30vw;
+            display:flex;
+            gap:2vw;
+        }
+        .right{
+            width:25vw;
+            height:30vw;
+
+        }
+        .bottom{
+            width:85vw;
+            height:30vw;
+        }
+        
+        .bx{
+            padding:3vw;
+            background-color: rgb(13, 16, 23);
+            background-color: rgba(19, 24, 32, 0.4);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(5px);
+            padding:1vw;
+            margin:1vw;
+        }
+        .start{
+            background-color: #268436;
+            border-radius: 0.5vw;
+            border:0px;
+            color:#d7fff2;
+            font-weight: bold;
+            font-size:1.5vw;
+            width:10vw;
+            height:5vw;
+        }
+        .pdfui{ 
+            background-color: #1d72b8;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .pdfui:hover {
+            background-color: #155a8a;
+        }
+        
+    </style>
+ <script defer src="/face-api.js"></script>
+
+
+</head>
+<body>
+    <div class="topbar">
+        <div class="topheading">E-Proctor</div>
+        <img style="width:3vw;height:3vw" src="/image/user.png">
+    </div >
+    <div class="transbx master">
+        <div class=" top">
+                <div class=" bx user">
+                    <div>
+                    <img style="width:20vw;height:20vw;border-radius:100%" src="/image/user.png">
+                    <form method="get" action="/updateimg">    
+                        <button class="start">Upload picture</button>
+                        
+                    </form>
+                </div>
+                    <div class="lighttext">    
+                     User name:Test <br>
+                        Age: 40<br>
+                        Work Hours:?<br><br>
+                        Phone number:?<br>
+                        Email ID:?<br>
+                        <form method="get" action="/pdfsummary">    
+                            <button class="pdfui">Download Work Report</button>
+                        </form>
+                        <button class="pdfui">Download Work Report</button>
+                    </div>
+                    <div>
+                        <h2>Status Logs:</h2>
+    <div class="scrollable-container">
+        <div id="status" style="color:#97989c"></div>
+    </div>
+                    </div>
+                </div>
+                <div class="bx right" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1vw;">
+                    <video id="video" width="100%" height="auto" autoplay muted style="max-width: 90%; border-radius: 1vw; border: 2px solid #4e4f51;"></video>
+                    <canvas id="canvas" style="display: none;"></canvas>
+                    <img id="photo" style="width: 100px; height: 100px; display: none;">
+                    <button class="start" id="captureButton">Start Capture</button>
+                    <button class="start" id="stopCaptureButton" style="background-color:red;">Stop Capture</button>
+</div>
+
+                
+
+        </div>
+        <div class="bx bottom">
+            <div class="bx bottom">
+                <h2>Work history:</h2>
+                <div id="attendanceLogContainer">
+
+                <div id="attendanceLog">
+                    <% attendanceLog.forEach(entry => { %>
+                        <div class="status-box" style="background-color: #141b23; color: white; padding: 15px; border-radius: 10px; width: 100%; display: flex; flex-direction: column; margin-bottom: 10px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span><strong>Status:</strong> <%= entry.status %></span>
+                                <span><strong>Time:</strong> <%= entry.timestamp %></span>
+                            </div>
+                        </div>
+                    <% }); %>
+                </div>
+                </div>
+                
+            </div>
+            
+            </div> 
+         <!-- Attendance Log -->
+        </div>
+
+    <div class="text">Made with ❤ by HAR AYU</div>
+    </div>
+</body>
+<script defer src = "/script.js"></script>
+
+</html>
