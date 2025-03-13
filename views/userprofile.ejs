@@ -6,6 +6,8 @@
     <title>E-Proctor</title>
 
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lobster&family=Roboto:ital,wght@0,413;1,413&display=swap');
+
         /* General Styles */
         * {
             font-family: Roboto, sans-serif;
@@ -169,8 +171,9 @@
         .description{
             color:#97989c;
         }
+
         .top{
-            width:100vw;
+            width:90vw;
             height:34vw;
             display:flex;
             flex-direction:row;
@@ -186,18 +189,23 @@
             gap:2vw;
         }
         .right{
-            width:30vw;
+            width:25vw;
             height:30vw;
 
         }
         .bottom{
+            width:85vw;
             height:30vw;
         }
         
         .bx{
             padding:3vw;
             background-color: rgb(13, 16, 23);
-            border-radius: 2vw;
+            background-color: rgba(19, 24, 32, 0.4);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(5px);
+            padding:1vw;
+            margin:1vw;
         }
         .start{
             background-color: #268436;
@@ -209,6 +217,9 @@
             height:5vw;
         }
     </style>
+ <script defer src="/face-api.js"></script>
+
+
 </head>
 <body>
     <div class="topbar">
@@ -280,7 +291,9 @@
 
     <div class="text">Made with ❤ by HAR AYU</div>
 </body>
-<script>
+<script defer src = "/script.js"></script>
+
+<!-- <script>
     const video = document.getElementById('video');
     const canvas = document.getElementById('canvas');
     const photo = document.getElementById('photo');
@@ -330,5 +343,6 @@
     });
 
     startCamera();
-</script>
+    
+</script> -->
 </html>

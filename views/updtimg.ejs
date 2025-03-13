@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Image Upload</title>
     <style>
+    @import url('https://fonts.googleapis.com/css2?family=Lobster&family=Roboto:ital,wght@0,413;1,413&display=swap');
+
         /* General Styles */
         * {
             font-family: Roboto, sans-serif;
@@ -70,18 +72,21 @@
     <div class="container">
         <h1>Upload Your Profile Picture</h1>
         <div class="upload-box">
-            <button class="upload-label" onclick="captureImage()">Capture Image</button>
+            <button class="upload-label" onclick="captureImage()">Capture and Save Image</button>
             <video id="video" width="100%" height="auto" autoplay muted style="max-width: 90%; border-radius: 1vw; border: 2px solid #4e4f51;"></video>
             <canvas id="canvas" style="display: none;"></canvas>
         </div>
         <img id="preview" style="display: none;"/>
-        <button class="submit-btn" id="uploadButton" onclick="upload()">UPDATE</button>
-    </div>
+        <form method="GET" action="/userpro">        
+            <button class="submit-btn" type="submit">Return Home</button>
+        </form>
+
+        </div>
 
     <script>
         const video = document.getElementById('video');
         const canvas = document.getElementById('canvas');
-        const preview = document.getElementById('preview');
+        const photo = document.getElementById('preview');
 
         async function startCamera() {
             try {
@@ -91,19 +96,31 @@
                 console.error("Error accessing the camera", err);
             }
         }
+        let imageDataUrl = null;
 
         function captureImage() {
             canvas.width = video.videoWidth;
-            canvas.height = video.videoHeight;
-            canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-            const imageDataUrl = canvas.toDataURL('image/jpeg');
-            preview.src = imageDataUrl;
-            preview.style.display = "block";
-        }
-        function upload(params) {
-            
-        }
+        canvas.height = video.videoHeight;
+        canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+        imageDataUrl = canvas.toDataURL('image/jpeg'); // Convert image to Base64
+        photo.src = imageDataUrl;
+        photo.style.display = "block";
 
+        // Send image to Node.js server
+        if(imageDataUrl==null){
+                console.error("image not taken");
+            }else{
+                    fetch('/uploadprofile', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ image: imageDataUrl })  // Send image data
+                })
+                .then(response => response.json())
+                .then(data => console.log('Image saved:', data))
+                .catch(error => console.error('Error:', error));   
+            }
+        }
+        
         startCamera();
     </script>
 </body>
