@@ -1,21 +1,27 @@
 import express from "express";
 import path from "path";
 import fs from "fs";
-import canvas from "canvas";
-import faceapi from "face-api.js";
 import multer from "multer";
 
 const loginroute = express.Router();
 
-// Ensure uploads directory exists
 const UPLOADS_DIR = path.join(process.cwd(), "uploads");
-
 const STYLESHEET_DIR = path.join(process.cwd(), "stylesheet");
+
 if (!fs.existsSync(UPLOADS_DIR)) {
     fs.mkdirSync(UPLOADS_DIR, { recursive: true });
 }
+// Serve images dynamically
+loginroute.get("/image/:name", (req, res) => {
+    const filePath = path.join(process.cwd(), "stylesheet", req.params.name);
+    if (fs.existsSync(filePath)) {
+        res.sendFile(filePath);
+    } else {
+        res.status(404).json({ error: "File not found" });
+    }
+});
 
-// Multer storage configuration for file uploads
+
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, UPLOADS_DIR);
@@ -27,72 +33,40 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-// ------------------- ROUTES -------------------
+// Attendance log array
+let attendanceLog = [];
 
+// ------------------- ROUTES -------------------
 loginroute.get("/", (req, res) => {
     res.redirect("/home");
 });
 
-// Serve images dynamically
-loginroute.get("/image/:name", (req, res) => {
-    const filePath = path.join(process.cwd(), "stylesheet", req.params.name);
-    if (fs.existsSync(filePath)) {
-        res.sendFile(filePath);
-    } else {
-        res.status(404).json({ error: "File not found" });
-    }
-});
-
 loginroute.get("/home", (req, res) => res.render("home"));
 loginroute.get("/login", (req, res) => res.render("login"));
-loginroute.get("/userpro", (req, res) => res.render("userprofile"));
+
+// ------------------- Render User Profile with Attendance -------------------
+loginroute.get("/userpro", (req, res) => {
+    res.render("userprofile", { attendanceLog });
+});
 loginroute.get("/updateimg", (req, res) => res.render("updtimg"));
 
-// ------------------- FACE REGISTRATION -------------------
-let knownFaceDescriptor = null;
+loginroute.get("/pdfsummary", (req, res) => {
+    res.render("pdfsummary");
+});
+// ------------------- Handle Attendance Data -------------------
+loginroute.post('/attendance', (req, res) => {
+    const { status } = req.body;
+    const timestamp = new Date().toLocaleString();
 
-// loginroute.post("/upload", upload.single("image"), async (req, res) => {
-//     if (!req.file) return res.status(400).json({ error: "No file uploaded" });
+    attendanceLog.push({ status, timestamp });
 
-//     const imgPath = req.file.path;
-    
-//     try {
-//         const img = await canvas.loadImage(imgPath);
-//         const detections = await faceapi.detectSingleFace(img)
-//             .withFaceLandmarks()
-//             .withFaceDescriptor();
+    console.log(`Attendance recorded: ${status} at ${timestamp}`);
+    res.status(200).json({ message: "Attendance recorded." });
+});
 
-//         fs.unlinkSync(imgPath); // Delete file after processing
-
-//         if (!detections) {
-//             return res.status(400).json({ error: "No face detected" });
-//         }
-
-//         knownFaceDescriptor = detections.descriptor;
-//         res.json({ message: "Face registered successfully." });
-//     } catch (error) {
-//         console.error("Error processing image:", error);
-//         res.status(500).json({ error: "Server error" });
-//     }//
-//});
-
-// ------------------- FACE RECOGNITION -------------------
-loginroute.post("/recognize", async (req, res) => {
-    // if (!knownFaceDescriptor) return res.status(400).json({ error: "No registered face." });
-
-    // try {
-    //     const receivedDescriptor = new Float32Array(req.body.descriptor);
-    //     const distance = faceapi.euclideanDistance(receivedDescriptor, knownFaceDescriptor);
-
-    //     if (distance < 0.6) {
-    //         res.json({ result: "Face Matched ✅" });
-    //     } else {
-    //         res.json({ result: "Face Not Recognized ❌" });
-    //     }
-    // } catch (error) {
-    //     console.error("Error recognizing face:", error);
-    //     res.status(500).json({ error: "Server error" });
-    // }
+// Serve attendance records in JSON format
+loginroute.get('/attendance-log', (req, res) => {
+    res.json(attendanceLog);
 });
 
 // ------------------- PROFILE IMAGE UPLOAD -------------------
