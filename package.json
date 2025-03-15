@@ -1,12 +1,13 @@
 {
-  "name": "-employee-entry-management",
+  "name": "employee-entry-management",
   "version": "1.0.0",
   "description": "Employee-Entry-System",
   "main": "index.js",
+  "type": "module",  
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Harshit and Ayushi Kandpal",
+  "author": "Harshit Kandpal",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.20.3",
@@ -15,7 +16,6 @@
     "express": "^4.21.2",
     "express-session": "^1.18.1",
     "face-api.js": "^0.22.2",
-    "fs": "^0.0.1-security",
     "mongoose": "^8.11.0",
     "multer": "^1.4.5-lts.1",
     "passport": "^0.7.0",

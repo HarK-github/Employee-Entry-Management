@@ -9,7 +9,7 @@ import faceapi from 'face-api.js';
 export const app = express();
 app.set("view engine","ejs");
 app.use(urlencoded(true));
-app.use(express.json({ limit: '10mb' })); // Increase limit for large images
+app.use(express.json({ limit: '10mb' })); 
 app.use('',express.static(__dirname+ '/public'));
 app.use('/models',express.static(__dirname+'/models'));
 
