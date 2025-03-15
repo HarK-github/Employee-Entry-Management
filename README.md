@@ -1,9 +1,14 @@
+Here's the **updated `README.md`** with an additional step instructing users to **first upload their image** before starting face recognition.  
+
+---
+
 # **Employee Entry Management**  
 
-This web application uses **face recognition** to record the presence of employees in real-time and logs their entries. The logs can be viewed and exported as a **PDF report**.  
+This web application uses **face recognition** to record employee presence in real-time and logs their entries. The logs can be viewed and exported as a **PDF report**.  
 
 ## **Features**  
-✅ Real-time face recognition  
+✅ **Upload User Image for Recognition**  
+✅ Real-time **face recognition**  
 ✅ Automatic logging of entry timestamps  
 ✅ Export logs to **PDF format**  
 ✅ Web-based interface  
@@ -42,7 +47,11 @@ Ensure the following are installed on your system:
    node index.js
    ```
 
-5. **Access the Web App:**  
+5. **Upload User Image for Face Recognition:**  
+   - Upload your profile image : http://localhost:8080/updateimg? to run face recognition on. Alternatively before starting the application, **upload the user image** to the designated folder (e.g., `/uploads`) as "user.png". 
+   - This image will be used for **face matching** when detecting entries.  
+
+6. **Access the Web App:**  
    - Open your browser and go to:  
      ```
      http://localhost:8080
@@ -53,9 +62,10 @@ Ensure the following are installed on your system:
 ## **Technology Stack**  
 - **Frontend:** HTML, CSS, JavaScript, EJS  
 - **Backend:** Node.js, Express.js  
-- **Database:** MongoDB 
+- **Database:** MongoDB (if applicable)  
 - **Face Recognition:** `face-api.js`  
----
+
+
 <h3 align="left">Languages and Tools:</h3>
 <p align="left">
   <a href="https://www.w3schools.com/css/" target="_blank" rel="noreferrer">
