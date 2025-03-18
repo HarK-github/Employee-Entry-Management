@@ -38,7 +38,7 @@ Ensure the following are installed on your system:
 3. **Setup Environment Variables:**  
    - Create a `.env` file in the project root directory  
    - Add the following configuration:  
-     ```
+     ```js
      PORT=8080
      ```
 
@@ -46,16 +46,29 @@ Ensure the following are installed on your system:
    ```sh
    node index.js
    ```
+5. **Click login to enter**
+      - Note that there is no authentication currently it's a dummy page. 
+      <img src="./readmefiles/step1.png" alt="Alt text" title="Optional Title" width="400">
+6. **Allow web camera access**
+      - Allow web cam access when asked <img src="./readmefiles/step2.png" alt="Alt text" title="Optional Title" width="400">
+      
 
-5. **Upload User Image for Face Recognition:**  
+7. **Upload User Image for Face Recognition:**  
    - Upload your profile image : http://localhost:8080/updateimg? to run face recognition on. Alternatively before starting the application, **upload the user image** to the designated folder (e.g., `/uploads`) as "user.png". 
-   - This image will be used for **face matching** when detecting entries.  
+   - This image will be used for **face matching** when detecting entries.It will replace the dummy image.
+   - Then click upload
+<img src="./readmefiles/step3.png" alt="Alt text" title="Optional Title" width="400">
 
-6. **Access the Web App:**  
-   - Open your browser and go to:  
-     ```
-     http://localhost:8080
-     ```
+
+
+8. **Click Start capture to start the face recognition to detect presence**  
+    - The status of the face recognition is updated in a list under the "Work history" section and the console output is displayed beside the profile image
+
+9. **Download the work report as a pdf**
+    - The proctoring history can be printed in pdf form by clicking the "Download Report" button.
+    - The pdf will be downloaded as shown in image->
+    <img src="./readmefiles/step4.png" alt="Alt text" title="Optional Title" width="400">
+
 
 ---
 

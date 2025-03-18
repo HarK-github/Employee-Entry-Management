@@ -70,7 +70,10 @@ async function startCamera() {
 
 // Detect faces and compare
 async function detectFaces() {
-    if (!video || video.readyState !== 4 || !referenceDescriptor) return;
+    if (!video || video.readyState !== 4 || !referenceDescriptor) {
+        await markAbsent();
+        return;
+    }
 
     const detections = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions())
         .withFaceLandmarks()
@@ -85,7 +88,7 @@ async function detectFaces() {
     if (detections.length > 0) {
         compareFaces(detections[0].descriptor);
     } else {
-        logStatus("No face detected.");
+        await markAbsent();
     }
 }
 
@@ -94,13 +97,23 @@ async function compareFaces(liveDescriptor) {
     const distance = faceapi.euclideanDistance(referenceDescriptor, liveDescriptor);
     const status = distance < 0.5 ? "Present" : "Absent";
 
+    await sendAttendanceStatus(status);
+    logStatus(`Face match distance: ${distance.toFixed(4)}, Status: ${status}`);
+}
+
+// Mark as Absent when no face detected
+async function markAbsent() {
+    await sendAttendanceStatus("Absent");
+    logStatus("No face detected. Marking as Absent.");
+}
+
+// Send attendance status to server
+async function sendAttendanceStatus(status) {
     await fetch('/attendance', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status })
     });
-
-    logStatus(`Face match distance: ${distance.toFixed(4)}, Status: ${status}`);
 }
 
 // Update attendance log
