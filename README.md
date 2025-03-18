@@ -5,7 +5,7 @@
 🚀 **Revolutionize employee attendance tracking with real-time face recognition!**  
 
 This web application leverages **cutting-edge face recognition technology** to record employee presence in real-time, log entries, and generate exportable **PDF reports**. Perfect for modern workplaces!  
-
+~ Developed by : Harshit Kandpal
 ---
 
 ## **✨ Key Features**  
