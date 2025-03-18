@@ -2,10 +2,12 @@
 
 # **Employee Entry Management System**  
 
-🚀 **Revolutionize employee attendance tracking with real-time face recognition!**  
+🚀 **Revolutionize employee attendance tracking with real-time face recognition!**
+
+
 
 This web application leverages **cutting-edge face recognition technology** to record employee presence in real-time, log entries, and generate exportable **PDF reports**. Perfect for modern workplaces!  
-~ Developed by : Harshit Kandpal
+
 ---
 
 ## **✨ Key Features**  
@@ -123,7 +125,30 @@ Before you begin, ensure the following are installed on your system:
 - ✅ Store logs in a database for long-term tracking  
 - ✅ Generate detailed analytics and insights  
 ---
+Here’s a **developer-by template** that you can include at the end of your `README.md` to give credit to the developers or contributors. This template is clean, professional, and visually appealing:
+
+---
+
+## **👨‍💻 Developed By**  
+
+<table>
+  <tr>
+    <td align="center">
+      <a href="https://github.com/hark-github">
+        <img src="https://avatars.githubusercontent.com/hark-github" width="100px;" alt="Your Name"/>
+        <br />
+        <sub><b>Harshit Kandpal</b></sub>
+      </a>
+      <br />
+      <a href="https://github.com/hark-github" title="GitHub">👨‍💻</a>
+      <a href="https://www.linkedin.com/in/harshit-k-a746a1310/" title="LinkedIn">🔗</a>
+    </td>
+  </tr>
+</table>
+
+
 
 ## **🤝 Contributions Welcome!**  
 Feel free to open an **issue** or submit a **pull request** to contribute to this project. Let’s build something amazing together! 🚀  
 ---
+
