@@ -14,7 +14,7 @@ app.use('',express.static(__dirname+ '/public'));
 app.use('/models',express.static(__dirname+'/models'));
 
 app.use('',express.static(__dirname+'/stylesheet'));
-
+const port = process.env.PORT || 4000;
 dt.config();
 
 async function loadModels() {
@@ -28,6 +28,6 @@ loadModels();
 
 app.use("/",loginroute);
 //configSession(app);
-app.listen(process.env.PORT || 4040,()=>{
-  console.log("Listening on the port number :",process.env.PORT || 4040);
+app.listen(port,()=>{
+  console.log("Listening on the port number :",port);
 })
