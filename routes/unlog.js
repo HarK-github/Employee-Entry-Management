@@ -38,9 +38,10 @@ let attendanceLog = [];
 
 // ------------------- ROUTES -------------------
 loginroute.get("/", (req, res) => {
-    res.redirect("/home");
+    res.redirect("/userpro");
 });
 
+//----- Currently not needed--------
 loginroute.get("/home", (req, res) => res.render("home"));
 loginroute.get("/login", (req, res) => res.render("login"));
 

@@ -4,328 +4,324 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>E-Proctor</title>
-
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Lobster&family=Roboto:ital,wght@0,413;1,413&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Lobster&family=Poppins:wght@300;400;500;600&display=swap');
 
         /* General Styles */
         * {
-            font-family: Roboto, sans-serif;
+            font-family: 'Poppins', sans-serif;
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-            width: 100%;
-  --s: 20vw; /* control the size*/
-  --c1: #1d1d1d;
-  --c2: #4e4f51;
-  --c3: #3c3c3c;
-  
-  background:
-    repeating-conic-gradient(from 30deg,#0000 0 120deg,var(--c3) 0 50%) 
-     calc(var(--s)/2) calc(var(--s)*tan(30deg)/2),
-    repeating-conic-gradient(from 30deg,var(--c1) 0 60deg,var(--c2) 0 120deg,var(--c3) 0 50%);
-  background-size: var(--s) calc(var(--s)*tan(30deg));
-
+            background-color: #0E1116;
+            color: #f0f0f0;
+            min-height: 100vh;
         }
 
         /* Top Bar */
         .topbar {
-            width: 100vw;
-            padding: 2vw;
-            background-color: #0E1116;
-            height: 10vw;
-            border-radius: 0% 0% 20% 10%;
+            width: 100%;
+            padding: 1.5rem;
+            background-color: #12161D;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
 
         .topheading {
-            padding: 2vw;
-            font-size: 4vw;
+            font-size: 2rem;
             color: #e7ffbb;
             font-weight: 500;
-            font-family: Lobster;
+            font-family: 'Lobster', cursive;
         }
-
-        
-
-        
 
         /* Main Container */
-        .maincontainer {
+        .main-container {
             width: 100%;
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Flex Row for Side-by-Side Sections */
+        .row {
             display: flex;
-            flex-direction: row;
-            background-color: transparent;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10vw;
-            padding: 1vw 5vw;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
         }
 
-        /* Blob Styling */
-        .blob {
-            position: relative;
-            height: 6vw;
-            width: 20vw;
-            font-size: 1.5vw;
-            color: rgb(216, 225, 240);
-            text-align: justify;
-            z-index: 1;
-            animation: pulseBlob 1s ease-in-out;
+        .col {
+            flex: 1;
+            min-width: 0; /* Prevent overflow */
         }
 
-        .blob::before {
-            padding: 2vw 3vw 0 6vw;
-            content: 'Online monitoring system for secure assessments.';
-            position: absolute;
-            border-radius: 10%;
-            width: 25vw;
-            height: 6vw;
-            left: -3vw;
-            top: -2vw;
-            background-color: rgb(14, 114, 148);
-            z-index: -1;
-            transform: skewY(5deg);
-            animation: rotateBlob 5s infinite ease-in-out, colorChange 5s infinite alternate;
+        /* Card Styles */
+        .card {
+            background-color: #1A1F29;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
         }
-        .topbar::after{ 
-            content:"";
-            position:absolute;
-            color:white;
-            height: 10vw;
-            width:100vw;
-            z-index: -1;
-            top:2vw;
-            left:0;
-            border-radius: 0% 0% 100% 0%;
-            background-color: #0E1116;
-       }
-        
-        /* Image Container */
-        .img-container {
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: #e7ffbb;
+            border-bottom: 1px solid #2D3748;
+            padding-bottom: 0.5rem;
+        }
+
+        /* User Profile Section */
+        .profile-section {
             display: flex;
-            justify-content: center;
-            width: 100%;
-            gap:5vw;
-            margin-top: 3vw;
-        }
-
-        .img-container img {
-            width: 15vw;
-            height: 15vw;
-        }
-
-        .text {
-            color: wheat;
-            font-size: 2vw;
-            text-align: center;
-        }
-
-        .containerbot {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 1vw;
-            padding: 2vw;
-        }
-        .trans{
-            font-size: 3vw;
-            height:25vw;
-            gap:3vw;
-            flex-direction: column;
-            padding:1vw;       
-            border-radius: 10%;      
-            background-color: rgba(2, 3, 5, 0.4);
-            -webkit-backdrop-filter: blur(5px);
-            backdrop-filter: blur(5px);
-            width: 25vw;
-            display: flex;
-            align-items: center;
-            transition: width 1s, height 1s;
-            justify-content: center;
-        }
-        .transbx{
-            background-color: rgba(19, 24, 32, 0.4);
-            -webkit-backdrop-filter: blur(5px);
-            backdrop-filter: blur(5px);
-            padding:1vw;
-            margin:1vw;
-        }
-        .master{
-            height:80vw;
-            display:flex;
             flex-direction: column;
         }
-        .lighttext{
-            font-style:-apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-            font-size:2vw;
-            font-style: bold;
-            color:#fbf0de;
-        }
-        
-        #attendanceLogContainer {
-            max-height: 20vw; /* Adjust height as needed */
-            overflow-y: auto;  /* Enables vertical scrolling*/
-        }        
-        .description{
-            color:#97989c;
+
+        .profile-image-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 1rem;
         }
 
-        .top{
-            width:90vw;
-            height:34vw;
-            display:flex;
-            flex-direction:row;
-            justify-content: row;
-            flex-wrap: wrap;
-            gap:1vw;
-
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #2D3748;
+            margin-bottom: 1rem;
         }
+
+        .profile-info p {
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .profile-info strong {
+            color: #CBD5E0;
+        }
+
+        /* Button Styles */
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            margin-top: 0.5rem;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background-color: #268436;
+            color: #d7fff2;
+        }
+
+        .btn-primary:hover {
+            background-color: #1f6e2d;
+        }
+
+        .btn-danger {
+            background-color: #DC2626;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #B91C1C;
+        }
+
+        .btn-secondary {
+            background-color: #1d72b8;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #155a8a;
+        }
+
+        /* Status Logs */
         .scrollable-container {
-            max-height: 20vw;
+            max-height: 200px;
             overflow-y: auto;
             padding-right: 10px;
             scrollbar-width: thin;
+            margin-top: 0.5rem;
         }
-        
+
         .scrollable-container::-webkit-scrollbar {
-            width: 8px;
+            width: 6px;
         }
-        
+
         .scrollable-container::-webkit-scrollbar-thumb {
-            background: #444;
+            background: #4A5568;
             border-radius: 4px;
         }
-        
-        .user{
-            width:60vw;
-            height:30vw;
-            display:flex;
-            gap:2vw;
-        }
-        .right{
-            width:25vw;
-            height:30vw;
 
-        }
-        .bottom{
-            width:85vw;
-            height:30vw;
-        }
-        
-        .bx{
-            padding:3vw;
-            background-color: rgb(13, 16, 23);
-            background-color: rgba(19, 24, 32, 0.4);
-            -webkit-backdrop-filter: blur(10px);
-            backdrop-filter: blur(5px);
-            padding:1vw;
-            margin:1vw;
-        }
-        .start{
-            background-color: #268436;
-            border-radius: 0.5vw;
-            border:0px;
-            color:#d7fff2;
-            font-weight: bold;
-            font-size:1.5vw;
-            width:10vw;
-            height:5vw;
-        }
-        .pdfui{ 
-            background-color: #1d72b8;
+        .status-box {
+            background-color: #1E293B;
             color: white;
-            padding: 10px 15px;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-            margin-top: 10px;
+            padding: 0.75rem;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
         }
-        .pdfui:hover {
-            background-color: #155a8a;
+
+        /* Video Feed Section */
+        .video-section {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
         }
-        
+
+        #video {
+            width: 100%;
+            border-radius: 8px;
+            border: 2px solid #4A5568;
+            margin-bottom: 1rem;
+            background-color: #0E1116;
+            aspect-ratio: 4/3;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: auto;
+        }
+
+        /* Work History Section */
+        .history-section {
+            margin-top: 1.5rem;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 1.5rem;
+            color: #A0AEC0;
+            font-size: 0.9rem;
+            margin-top: 2rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .row {
+                flex-direction: column;
+            }
+            
+            .button-group {
+                flex-direction: row;
+                justify-content: center;
+            }
+            
+            .btn {
+                width: auto;
+            }
+            
+            #video {
+                max-width: 100%;
+            }
+        }
     </style>
- <script defer src="/face-api.js"></script>
-
-
 </head>
 <body>
     <div class="topbar">
         <div class="topheading">E-Proctor</div>
-        <img style="width:3vw;height:3vw" src="/image/user.png">
-    </div >
-    <div class="transbx master">
-        <div class=" top">
-                <div class=" bx user">
-                    <div>
-                    <img style="width:20vw;height:20vw;border-radius:100%" src="/image/user.png">
-                    <form method="get" action="/updateimg">    
-                        <button class="start">Upload picture</button>
-                        
-                    </form>
-                </div>
-                    <div class="lighttext">    
-                     User name:Test <br>
-                        Age: 40<br>
-                        Work Hours:?<br><br>
-                        Phone number:?<br>
-                        Email ID:?<br>
-                        <form method="get" action="/pdfsummary">    
-                            <button class="pdfui">Download Work Report</button>
+        <img style="width:40px;height:40px" src="/image/user.png" alt="User Icon">
+    </div>
+    
+    <div class="main-container">
+        <div class="row">
+            <!-- Profile Card -->
+            <div class="col">
+                <div class="card profile-section">
+                    <h3 class="card-title">User Profile</h3>
+                    <div class="profile-image-container">
+                        <img class="profile-image" src="/image/user.png" alt="User Profile">
+                        <form method="get" action="/updateimg">    
+                            <button class="btn btn-primary">Upload Picture</button>
                         </form>
                     </div>
-                    <div>
-                        <h2>Status Logs:</h2>
-    <div class="scrollable-container">
-        <div id="status" style="color:#97989c"></div>
-    </div>
+                    <div class="profile-info">
+                        <p><strong>User name:</strong> Test</p>
+                        <p><strong>Age:</strong> 40</p>
+                        <p><strong>Work Hours:</strong> ?</p>
+                        <p><strong>Phone number:</strong> ?</p>
+                        <p><strong>Email ID:</strong> ?</p>
+                        <form method="get" action="/pdfsummary">    
+                            <button class="btn btn-secondary">Download Work Report</button>
+                        </form>
                     </div>
                 </div>
-                <div class="bx right" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1vw;">
-                    <video id="video" width="100%" height="auto" autoplay muted style="max-width: 90%; border-radius: 1vw; border: 2px solid #4e4f51;"></video>
-                    <canvas id="canvas" style="display: none;"></canvas>
-                    <img id="photo" style="width: 100px; height: 100px; display: none;">
-                    <button class="start" id="captureButton">Start Capture</button>
-                    <button class="start" id="stopCaptureButton" style="background-color:red;">Stop Capture</button>
-</div>
-
-                
-
-        </div>
-        <div class="bx bottom">
-            <div class="bx bottom">
-                <h2>Work history:</h2>
-                <div id="attendanceLogContainer">
-
-                <div id="attendanceLog">
-                    <% attendanceLog.forEach(entry => { %>
-                        <div class="status-box" style="background-color: #141b23; color: white; padding: 15px; border-radius: 10px; width: 100%; display: flex; flex-direction: column; margin-bottom: 10px;">
-                            <div style="display: flex; justify-content: space-between; align-items: center;">
-                                <span><strong>Status:</strong> <%= entry.status %></span>
-                                <span><strong>Time:</strong> <%= entry.timestamp %></span>
-                            </div>
-                        </div>
-                    <% }); %>
-                </div>
-                </div>
-                
             </div>
             
-            </div> 
-         <!-- Attendance Log -->
+            <!-- Live Monitoring Card -->
+            <div class="col">
+                <div class="card video-section">
+                    <h3 class="card-title">Live Monitoring</h3>
+                    <video id="video" width="100%" height="auto" autoplay muted></video>
+                    <canvas id="canvas" style="display: none;"></canvas>
+                    <img id="photo" style="display: none;">
+                    <div class="button-group">
+                        <button class="btn btn-primary" id="captureButton">Start Capture</button>
+                        <button class="btn btn-danger" id="stopCaptureButton">Stop Capture</button>
+                    </div>
+                </div>
+            </div>
         </div>
-
-    <div class="text">Made with ❤ by HARSHITK</div>
+        
+        <!-- Status Logs Card -->
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <h3 class="card-title">Status Logs</h3>
+                    <div class="scrollable-container">
+                        <div id="status" style="color:#A0AEC0"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Work History Card -->
+        <div class="row">
+            <div class="col">
+                <div class="card history-section">
+                    <h3 class="card-title">Work History</h3>
+                    <div id="attendanceLogContainer" class="scrollable-container">
+                        <div id="attendanceLog">
+                            <% attendanceLog.forEach(entry => { %>
+                                <div class="status-box">
+                                    <span><strong>Status:</strong> <%= entry.status %></span>
+                                    <span><strong>Time:</strong> <%= entry.timestamp %></span>
+                                </div>
+                            <% }); %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</body>
-<script defer src = "/script.js"></script>
+    
+    <div class="footer">Made with ❤ by HARSHITK</div>
 
+    <script defer src="/face-api.js"></script>
+    <script defer src="/script.js"></script>
+</body>
 </html>

@@ -28,6 +28,6 @@ loadModels();
 
 app.use("/",loginroute);
 //configSession(app);
-app.listen(process.env.PORT,()=>{
-  console.log("Listening on the port number :",process.env.PORT);
+app.listen(process.env.PORT || 4040,()=>{
+  console.log("Listening on the port number :",process.env.PORT || 4040);
 })
