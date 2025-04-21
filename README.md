@@ -17,7 +17,7 @@ This web application leverages **cutting-edge face recognition technology** to r
 
 ---
 
-## ** Key Features**  
+## **Key Features**  
 ✅ **Upload User Image for Recognition**  
 ✅ Real-time **face recognition** with high accuracy  
 ✅ Automatic logging of entry timestamps  
